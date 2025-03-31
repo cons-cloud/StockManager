@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockManager - Alertes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f6f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #7f8c8d;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .user-menu button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: #3498db;
+            font-weight: bold;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn.mark-all {
+            background-color: #2ecc71;
+        }
+        
+        .btn.mark-all:hover {
+            background-color: #27ae60;
+        }
+        
+        .alert-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .alert-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+        
+        .alert-content {
+            flex-grow: 1;
+        }
+        
+        .alert-item.critical {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .alert-item.warning {
+            border-left: 4px solid #f39c12;
+        }
+        
+        .alert-item.info {
+            border-left: 4px solid #3498db;
+        }
+        
+        .alert-date {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .alert-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn.small {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .btn.view {
+            background-color: #3498db;
+        }
+        
+        .btn.mark-read {
+            background-color: #2ecc71;
+        }
+        
+        .no-alerts {
+            padding: 30px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        
+        .alert-severity {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 10px;
+        }
+        
+        .severity-critical {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .severity-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .severity-info {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>StockManager</h1>
+            <nav>
+                <a href="dashboard.html">Tableau de bord</a>
+                <a href="products.html">Produits</a>
+                <a href="inventory.html">Stock</a>
+                <a href="alerts.html" class="active">Alertes</a>
+            </nav>
+            <div class="user-menu">
+                <button id="logoutBtn">Déconnexion</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="tabs">
+                <div class="tab active" data-tab="active">Alertes actives</div>
+                <div class="tab" data-tab="history">Historique</div>
+                <div class="tab" data-tab="settings">Paramètres</div>
+            </div>
+
+            <div class="page-header">
+                <h2>Alertes de stock</h2>
+                <button class="btn mark-all">Marquer tout comme lu</button>
+            </div>
+
+            <div class="alert-list">
+                <div class="alert-item critical">
+                    <div class="alert-content">
+                        <div>
+                            <span class="alert-severity severity-critical">Critique</span>
+                            <strong>Ordinateur portable (PROD001)</strong>
+                        </div>
+                        <p>Stock actuel: 2 (Seuil critique: 5)</p>
+                        <div class="alert-date">10/06/2023 14:30</div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn small view">Voir</button>
+                        <button class="btn small mark-read">Marquer comme lu</button>
+                    </div>
+                </div>
+                
+                <div class="alert-item warning">
+                    <div class="alert-content">
+                        <div>
+                            <span class="alert-severity severity-warning">Alerte</span>
+                            <strong>Souris sans fil (PROD002)</strong>
+                        </div>
+                        <p>Stock actuel: 8 (Seuil d'alerte: 10)</p>
+                        <div class="alert-date">10/06/2023 12:15</div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn small view">Voir</button>
+                        <button class="btn small mark-read">Marquer comme lu</button>
+                    </div>
+                </div>
+                
+                <div class="alert-item info">
+                    <div class="alert-content">
+                        <div>
+                            <span class="alert-severity severity-info">Info</span>
+                            <strong>Inventaire mensuel</strong>
+                        </div>
+                        <p>L'inventaire mensuel doit être effectué avant le 15/06</p>
+                        <div class="alert-date">05/06/2023 09:00</div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn small view">Voir</button>
+                        <button class="btn small mark-read">Marquer comme lu</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Vérification de la connexion
+        if (!localStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html';
+        }
+
+        // Déconnexion
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('loggedIn');
+            window.location.href = 'index.html';
+        });
+
+        // Gestion des onglets
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Ici, vous devriez charger le contenu approprié
+            });
+        });
+
+        // Marquer toutes les alertes comme lues
+        document.querySelector('.btn.mark-all').addEventListener('click', () => {
+            if (confirm('Marquer toutes les alertes comme lues ?')) {
+                alert('Toutes les alertes ont été marquées comme lues');
+                // Ici, vous devriez mettre à jour la base de données
+            }
+        });
+
+        // Gestion des boutons d'alerte
+        document.querySelectorAll('.btn.mark-read').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const alertItem = this.closest('.alert-item');
+                alertItem.style.opacity = '0.6';
+                // Ici, vous devriez mettre à jour la base de données
+            });
+        });
+
+        document.querySelectorAll('.btn.view').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productName = this.closest('.alert-item').querySelector('strong').textContent;
+                alert(`Afficher les détails pour ${productName}`);
+                // Ici, vous devriez rediriger vers la page du produit
+            });
+        });
+    </script>
+</body>
+</html>

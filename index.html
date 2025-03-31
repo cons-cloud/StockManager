@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockManager - Connexion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6f1d33 10%, #b1212b 30%, #b22932 50%, #752035 70%, #6f1d33 90%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .login-container {
+    
+    background: rgba(255, 255, 255, 0.2); /* Blanc transparent */
+    backdrop-filter: blur(10px); /* Effet flou */
+    border-radius: 10px; /* Coins arrondis */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    text-align: center;
+
+        }
+        
+        .logo {
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .btn {
+    background: linear-gradient(135deg, #b1212b, #b22932);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    justify-content: center;
+    
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #b22932, #b1212b);
+}
+        
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #0a0b0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>StockManager</h1>
+            <p>Gestion des stocks hors ligne</p>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn">Connexion</button>
+        </form>
+        <p class="note">Toutes les données sont stockées localement sur votre appareil.</p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            localStorage.setItem('loggedIn', 'true');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
